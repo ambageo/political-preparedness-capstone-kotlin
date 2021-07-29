@@ -16,7 +16,7 @@ class ElectionListAdapter(private val clickListener: ElectionListener): ListAdap
 }
 
 //TODO: Create ElectionViewHolder
-
+class ElectionViewHolder(val binding: )
 //TODO: Create ElectionDiffCallback
 
 //TODO: Create ElectionListener
