@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.ElectionResponse
 import com.example.android.politicalpreparedness.network.models.SavedElection
 
 @Dao
@@ -13,9 +14,9 @@ interface ElectionDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllElections(elections: List<Election>)
 
-    //DONE: Add select all election query
-    @Query("select * from election_table")
-    suspend fun getAllElections(): MutableLiveData<List<Election>>
+    //TODO: Add select all election query
+    /*@Query("select * from election_table")
+    suspend fun getAllElections(): LiveData<List<ElectionResponse>>*/
 
     //DONE: Add clear query
     @Query("delete from election_table")
