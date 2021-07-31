@@ -15,8 +15,8 @@ interface ElectionDao {
     suspend fun insertAllElections(elections: List<Election>)
 
     //TODO: Add select all election query
-    /*@Query("select * from election_table")
-    suspend fun getAllElections(): LiveData<List<ElectionResponse>>*/
+    @Query("select * from election_table")
+    fun getAllElections(): LiveData<List<Election>>
 
     //DONE: Add clear query
     @Query("delete from election_table")

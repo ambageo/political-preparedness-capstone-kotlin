@@ -7,6 +7,7 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.ToJson
+import com.squareup.moshi.adapters.Rfc3339DateJsonAdapter
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -17,28 +18,10 @@ import java.util.*
 
 private const val BASE_URL = "https://www.googleapis.com/civicinfo/v2/"
 
-// TODO: Add adapters for Java Date and custom adapter ElectionAdapter (included in project)
-val DATE_FORMAT = "yyyy-MM-dd"
-
-class DateAdapter {
-    @ToJson
-    fun toJson(date: Date): String {
-        return DATE_FORMAT.format(date)
-    }
-
-    @FromJson
-    fun fromJson(json: String): Date {
-        return try {
-            val dateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
-            dateFormat.parse(json)
-        } catch (e: ParseException) {
-            Date()
-        }
-    }
-}
+// DONE: Add adapters for Java Date and custom adapter ElectionAdapter (included in project)
 
 private val moshi = Moshi.Builder()
-        .add(DateAdapter())
+        .add(Date::class.java, Rfc3339DateJsonAdapter().nullSafe())
         .add(ElectionAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
@@ -55,9 +38,10 @@ private val retrofit = Retrofit.Builder()
  */
 
 interface CivicsApiService {
-    //TODO: Add elections API Call
+    //DONE: Add elections API Call
     @GET("elections")
     suspend fun getElections(): ElectionResponse
+
     //TODO: Add voterinfo API Call
 
     //TODO: Add representatives API Call
