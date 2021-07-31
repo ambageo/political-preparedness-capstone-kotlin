@@ -9,8 +9,8 @@ import com.example.android.politicalpreparedness.databinding.ViewholderElectionB
 import com.example.android.politicalpreparedness.databinding.ViewholderRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Election
 
-
-class ElectionListAdapter(private val clickListener: ElectionListener): ListAdapter<Election, ElectionViewHolder>(ElectionDiffCallback()) {
+// TODO Add listener to the parameters private val clickListener: ElectionListener
+class ElectionListAdapter(): ListAdapter<Election, ElectionViewHolder>(ElectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElectionViewHolder {
         return ElectionViewHolder.from(parent)

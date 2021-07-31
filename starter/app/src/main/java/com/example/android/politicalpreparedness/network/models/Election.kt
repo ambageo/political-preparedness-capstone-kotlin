@@ -11,3 +11,5 @@ data class Election(
         @ColumnInfo(name = "electionDay")val electionDay: Date,
         @Embedded(prefix = "division_") @Json(name="ocdDivisionId") val division: Division
 )
+
+// TODO: Add extension function to convert from Database Object to Domain Object
