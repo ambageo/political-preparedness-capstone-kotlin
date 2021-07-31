@@ -10,7 +10,7 @@ interface ElectionDao {
 
     //DONE: Add insert query
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllElections(vararg elections: Election)
+    suspend fun insertAllElections(vararg elections: List<Election>)
 
     //DONE: Add select all election query
     @Query("select * from election_table")

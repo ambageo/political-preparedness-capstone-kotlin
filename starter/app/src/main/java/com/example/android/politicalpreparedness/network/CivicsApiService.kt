@@ -1,6 +1,8 @@
 package com.example.android.politicalpreparedness.network
 
+import com.example.android.politicalpreparedness.network.jsonadapter.ElectionAdapter
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.ElectionResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.Moshi
@@ -37,6 +39,7 @@ class DateAdapter {
 
 private val moshi = Moshi.Builder()
         .add(DateAdapter())
+        .add(ElectionAdapter())
         .add(KotlinJsonAdapterFactory())
         .build()
 
@@ -54,7 +57,7 @@ private val retrofit = Retrofit.Builder()
 interface CivicsApiService {
     //TODO: Add elections API Call
     @GET("elections")
-    suspend fun getElections(): List<Election>
+    suspend fun getElections(): ElectionResponse
     //TODO: Add voterinfo API Call
 
     //TODO: Add representatives API Call
