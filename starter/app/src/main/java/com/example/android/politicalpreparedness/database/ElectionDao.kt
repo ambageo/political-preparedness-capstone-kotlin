@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.database
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.SavedElection
@@ -10,11 +11,11 @@ interface ElectionDao {
 
     //DONE: Add insert query
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllElections(vararg elections: List<Election>)
+    suspend fun insertAllElections(elections: List<Election>)
 
     //DONE: Add select all election query
     @Query("select * from election_table")
-    suspend fun getAllElections(): LiveData<List<Election>>
+    suspend fun getAllElections(): MutableLiveData<List<Election>>
 
     //DONE: Add clear query
     @Query("delete from election_table")
