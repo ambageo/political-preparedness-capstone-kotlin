@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
@@ -30,7 +31,11 @@ class ElectionsFragment: Fragment() {
 
         //TODO: Initiate recycler adapters
         val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {  election ->
-            binding.viewModel.navigateToElectionInfo(election)
+            election.let {
+                binding.viewModel?.navigateToVoterInfo(election)
+                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election, election.division))
+            }
+
         })
         binding.upcomingElectionsList.adapter = upcomingElectionsAdapter
 
