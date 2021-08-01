@@ -12,10 +12,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentElectionBinding
 import com.example.android.politicalpreparedness.election.adapter.ElectionListAdapter
+import com.example.android.politicalpreparedness.election.adapter.ElectionListener
 
 class ElectionsFragment: Fragment() {
 
-    //TODO: Declare ViewModel
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -23,12 +23,15 @@ class ElectionsFragment: Fragment() {
         val binding: FragmentElectionBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_election, container, false)
         binding.lifecycleOwner = this
 
+        //DONE: Declare ViewModel
         //DONE: Add ViewModel values and create ViewModel
         val viewModelFactory = ElectionsViewModelFactory(requireActivity().application)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(ElectionsViewModel::class.java)
 
         //TODO: Initiate recycler adapters
-        val upcomingElectionsAdapter = ElectionListAdapter()
+        val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {  election ->
+            binding.viewModel.navigateToElectionInfo(election)
+        })
         binding.upcomingElectionsList.adapter = upcomingElectionsAdapter
 
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer { electionsList ->

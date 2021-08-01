@@ -11,7 +11,7 @@ import com.example.android.politicalpreparedness.databinding.ViewholderRepresent
 import com.example.android.politicalpreparedness.network.models.Election
 
 // TODO Add listener to the parameters private val clickListener: ElectionListener
-class ElectionListAdapter(): ListAdapter<Election, ElectionViewHolder>(ElectionDiffCallback()) {
+class ElectionListAdapter(val clickListener: ElectionListener): ListAdapter<Election, ElectionViewHolder>(ElectionDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ElectionViewHolder {
         return ElectionViewHolder.from(parent)
@@ -20,7 +20,7 @@ class ElectionListAdapter(): ListAdapter<Election, ElectionViewHolder>(ElectionD
     //DONE: Bind ViewHolder
     override fun onBindViewHolder(holder: ElectionViewHolder, position: Int) {
         val item = getItem(position)
-        holder.bind(item)
+        holder.bind(clickListener, item)
     }
 }
 
@@ -28,10 +28,11 @@ class ElectionListAdapter(): ListAdapter<Election, ElectionViewHolder>(ElectionD
 
 //DONE: Create ElectionViewHolder
 class ElectionViewHolder(private val binding: ViewholderElectionBinding):RecyclerView.ViewHolder(binding.root) {
-    fun bind(item:  Election) {
+    fun bind(clickListener: ElectionListener, item:  Election) {
         binding.election= item
         binding.electionName.text = item.name
         binding.electionDate.text = item.electionDay.toString()
+        binding.clickListener = clickListener
 
         binding.executePendingBindings()
     }

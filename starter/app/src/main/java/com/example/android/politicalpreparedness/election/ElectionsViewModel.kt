@@ -10,9 +10,12 @@ import kotlinx.coroutines.launch
 //TODO: Construct ViewModel and provide election datasource
 class ElectionsViewModel(application: Application): AndroidViewModel(application) {
 
-
     private val database = ElectionDatabase.getInstance(application)
     private val repository = ElectionsRepository(database)
+
+    private val _navigateToElectionInfo = MutableLiveData<Election>()
+    val navigateToElectionInfo: LiveData<Election>
+    get() = _navigateToElectionInfo
 
     //TODO: Create live data val for upcoming elections
     val savedElections = MutableLiveData<Election>()
@@ -30,5 +33,12 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
     //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
 
     //TODO: Create functions to navigate to saved or upcoming election voter info
+    fun navigateToElectionInfo(election: Election) {
+        _navigateToElectionInfo.value = election
+    }
+
+    fun navigateToElectionInfoDone(){
+        _navigateToElectionInfo.value = null
+    }
 
 }
