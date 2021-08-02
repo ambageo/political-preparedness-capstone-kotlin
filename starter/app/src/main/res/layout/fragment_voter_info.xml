@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             style="@style/VoterInfoLinks"
             android:text="@string/voting_location"
+            android:onClick="@{() -> viewModel.loadVotingLocationUrl()}"
             app:layout_constraintTop_toBottomOf="@id/state_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
@@ -68,6 +69,7 @@
             android:layout_height="wrap_content"
             style="@style/VoterInfoLinks"
             android:text="@string/ballot_information"
+            android:onClick="@{() -> viewModel.loadBallotInformationUrl()}"
             app:layout_constraintTop_toBottomOf="@id/state_locations"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 

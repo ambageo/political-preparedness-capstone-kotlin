@@ -5,7 +5,6 @@ import android.util.Log
 import androidx.lifecycle.*
 import androidx.navigation.NavArgsLazy
 import com.example.android.politicalpreparedness.database.ElectionDatabase
-import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
@@ -28,14 +27,12 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     val ballotInformationUrl: LiveData<String>
         get() = _ballotInformationUrl
 
-    private fun getVotingLocationUrl(){
+     fun loadVotingLocationUrl(){
         _votingLocationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl
-        Log.d("ggg", " voting url: ${_votingLocationUrl.value}")
     }
 
-    private fun getBallotInformationUrl(){
+    fun loadBallotInformationUrl(){
         _ballotInformationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.ballotInfoUrl
-        Log.d("ggg", "Ballot url: ${_ballotInformationUrl.value}")
     }
 
     //DONE: Add var and methods to populate voter info
@@ -53,13 +50,18 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
 
         val address = "$country,$state"
 
-        Log.d("ggg", "Voter info: $electionId $address")
         viewModelScope.launch {
                 repository.getVoterInfo(address, electionId)
             _voterInfo.value = repository.voterInfo
-            getVotingLocationUrl()
-            getBallotInformationUrl()
         }
+    }
+
+    fun votingLocationCompleted() {
+       _votingLocationUrl.value = null
+    }
+
+    fun ballotInformationCompleted() {
+       _ballotInformationUrl.value = null
     }
 
 
