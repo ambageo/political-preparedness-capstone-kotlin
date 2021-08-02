@@ -25,6 +25,9 @@ interface ElectionDao {
     @Query("insert into saved_election_table (id) values(:electionId)")
     suspend fun saveElection(electionId: Int)
 
+    @Query("select exists(select * from saved_election_table where id = :electionId)")
+    suspend fun isElectionSaved(electionId: Int): Boolean
+
 
     //DONE: Add select single election query
     @Query("select * from election_table where id = :id")

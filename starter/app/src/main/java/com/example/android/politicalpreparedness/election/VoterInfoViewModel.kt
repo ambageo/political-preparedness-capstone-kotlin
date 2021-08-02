@@ -27,6 +27,10 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     val ballotInformationUrl: LiveData<String>
         get() = _ballotInformationUrl
 
+    private var _isElectionFollowed = MutableLiveData<Boolean>()
+    val isElectionFollowed: LiveData<Boolean>
+    get() = _isElectionFollowed
+
      fun loadVotingLocationUrl(){
         _votingLocationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl
     }
@@ -39,8 +43,8 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     init {
         viewModelScope.launch {
             getVoterInfo()
+            checkIfFollowingElection()
         }
-
     }
 
     private fun getVoterInfo() {
@@ -54,6 +58,15 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
                 repository.getVoterInfo(address, electionId)
             _voterInfo.value = repository.voterInfo
         }
+    }
+
+    private fun checkIfFollowingElection() {
+        val electionId =args.value.argElectionId
+        viewModelScope.launch {
+            repository.isElectionFollowed(electionId)
+        }
+
+        Log.d("ggg", "election ${args.value.argElectionId}")
     }
 
     fun votingLocationCompleted() {
@@ -71,5 +84,14 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     /**
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
      */
+    fun toggleFollowElectionButton(): String {
+        _isElectionFollowed.value = repository.isElectionFollowed
+        return if (isElectionFollowed.value == true) {
+            "Unfollow Election"
+        } else {
+            "Follow Election"
+
+        }
+    }
 
 }

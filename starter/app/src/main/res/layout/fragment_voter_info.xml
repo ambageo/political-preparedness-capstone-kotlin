@@ -104,6 +104,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Follow Election"
+            android:text="@{viewModel.toggleFollowElectionButton()}"
             android:layout_marginBottom="@dimen/double_margin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
