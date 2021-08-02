@@ -33,7 +33,7 @@ class ElectionsFragment: Fragment() {
         val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {  election ->
             election.let {
                 binding.viewModel?.navigateToVoterInfo(election)
-                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election, election.division))
+                this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election.id, election.division))
             }
 
         })

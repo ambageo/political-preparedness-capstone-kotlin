@@ -15,19 +15,22 @@ class VoterInfoFragment : Fragment() {
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        //TODO: Add ViewModel values and create ViewModel
-        val viewModelFactory = VoterInfoViewModelFactory(requireActivity().application)
+        val args = navArgs<VoterInfoFragmentArgs>()
+
+        //DONE: Add ViewModel values and create ViewModel
+        val viewModelFactory = VoterInfoViewModelFactory(args, requireActivity().application)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(VoterInfoViewModel::class.java)
-        //TODO: Add binding values
+
+        //DONE: Add binding values
         val binding: FragmentVoterInfoBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_voter_info, container, false)
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+
         //TODO: Populate voter info -- hide views without provided data.
         /**
         Hint: You will need to ensure proper data is provided from previous fragment.
         */
-        val args = navArgs<VoterInfoFragmentArgs>()
-        val election = args.value.argElection
 
         //TODO: Handle loading of URLs
 

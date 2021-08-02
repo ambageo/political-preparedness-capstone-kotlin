@@ -1,17 +1,67 @@
 package com.example.android.politicalpreparedness.election
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.ViewModel
-import com.example.android.politicalpreparedness.database.ElectionDao
+import android.util.Log
+import androidx.lifecycle.*
+import androidx.navigation.NavArgsLazy
+import com.example.android.politicalpreparedness.database.ElectionDatabase
+import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
+import com.example.android.politicalpreparedness.repository.ElectionsRepository
+import kotlinx.coroutines.launch
 
-class VoterInfoViewModel(application: Application) : AndroidViewModel(application) {
+class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, application: Application) : AndroidViewModel(application) {
+    private val database = ElectionDatabase.getInstance(application)
+    private val repository = ElectionsRepository(database)
 
-    //TODO: Add live data to hold voter info
+    //DONE: Add live data to hold voter info
+    private val _voterInfo = MutableLiveData<VoterInfoResponse>()
+    val voterInfo: LiveData<VoterInfoResponse>
+    get() = _voterInfo
 
-    //TODO: Add var and methods to populate voter info
+    //DONE: Add var and methods to support loading URLs
+    private var _votingLocationUrl = MutableLiveData<String>()
+    val votingLocationUrl: LiveData<String>
+        get()= _votingLocationUrl
 
-    //TODO: Add var and methods to support loading URLs
+    private var _ballotInformationUrl = MutableLiveData<String>()
+    val ballotInformationUrl: LiveData<String>
+        get() = _ballotInformationUrl
+
+    private fun getVotingLocationUrl(){
+        _votingLocationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl
+        Log.d("ggg", " voting url: ${_votingLocationUrl.value}")
+    }
+
+    private fun getBallotInformationUrl(){
+        _ballotInformationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.ballotInfoUrl
+        Log.d("ggg", "Ballot url: ${_ballotInformationUrl.value}")
+    }
+
+    //DONE: Add var and methods to populate voter info
+    init {
+        viewModelScope.launch {
+            getVoterInfo()
+        }
+
+    }
+
+    private fun getVoterInfo() {
+        val country = args.value.argDivision.country
+        val state = args.value.argDivision.state
+        val electionId =args.value.argElectionId
+
+        val address = "$country,$state"
+
+        Log.d("ggg", "Voter info: $electionId $address")
+        viewModelScope.launch {
+                repository.getVoterInfo(address, electionId)
+            _voterInfo.value = repository.voterInfo
+            getVotingLocationUrl()
+            getBallotInformationUrl()
+        }
+    }
+
 
     //TODO: Add var and methods to save and remove elections to local database
     //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
