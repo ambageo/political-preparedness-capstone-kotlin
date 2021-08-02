@@ -60,6 +60,7 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
         }
     }
 
+    //DONE: Populate initial state of save button to reflect proper action based on election saved status
     private fun checkIfFollowingElection() {
         val electionId =args.value.argElectionId
         viewModelScope.launch {
@@ -80,16 +81,15 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
 
 
     //TODO: Add var and methods to save and remove elections to local database
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
-
     /**
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
      */
-
     fun toggleFollowElection() = viewModelScope.launch {
         if(isElectionFollowed.value == true){
+            Log.d("ggg", "deleting election $electionId")
            repository.deleteElection(electionId)
         } else {
+            Log.d("ggg", "saving election $electionId")
             repository.saveElection(electionId)
         }
     }

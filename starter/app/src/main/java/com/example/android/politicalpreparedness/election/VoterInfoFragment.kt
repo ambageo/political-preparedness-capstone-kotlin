@@ -61,6 +61,10 @@ class VoterInfoFragment : Fragment() {
 
         })
 
+        binding.followElectionButton.setOnClickListener {
+            viewModel.toggleFollowElection()
+        }
+
         return binding.root
     }
 
