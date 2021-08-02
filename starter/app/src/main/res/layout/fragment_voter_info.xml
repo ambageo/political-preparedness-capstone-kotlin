@@ -97,6 +97,7 @@
 
         <!-- TODO: Add button to save election to Room -->
         <Button
+            android:id="@+id/follow_election_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Button"
@@ -104,7 +105,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="Follow Election"
-            android:text="@{viewModel.toggleFollowElectionButton()}"
             android:layout_marginBottom="@dimen/double_margin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

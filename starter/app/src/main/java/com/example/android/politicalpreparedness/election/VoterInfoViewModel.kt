@@ -12,6 +12,7 @@ import kotlinx.coroutines.launch
 class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, application: Application) : AndroidViewModel(application) {
     private val database = ElectionDatabase.getInstance(application)
     private val repository = ElectionsRepository(database)
+    private val electionId = args.value.argElectionId
 
     //DONE: Add live data to hold voter info
     private val _voterInfo = MutableLiveData<VoterInfoResponse>()
@@ -50,7 +51,6 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     private fun getVoterInfo() {
         val country = args.value.argDivision.country
         val state = args.value.argDivision.state
-        val electionId =args.value.argElectionId
 
         val address = "$country,$state"
 
@@ -64,9 +64,10 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
         val electionId =args.value.argElectionId
         viewModelScope.launch {
             repository.isElectionFollowed(electionId)
+            _isElectionFollowed.value = repository.isElectionFollowed
         }
 
-        Log.d("ggg", "election ${args.value.argElectionId}")
+        Log.d("ggg", "election $electionId")
     }
 
     fun votingLocationCompleted() {
@@ -84,13 +85,12 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     /**
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.
      */
-    fun toggleFollowElectionButton(): String {
-        _isElectionFollowed.value = repository.isElectionFollowed
-        return if (isElectionFollowed.value == true) {
-            "Unfollow Election"
-        } else {
-            "Follow Election"
 
+    fun toggleFollowElection() = viewModelScope.launch {
+        if(isElectionFollowed.value == true){
+           repository.deleteElection(electionId)
+        } else {
+            repository.saveElection(electionId)
         }
     }
 

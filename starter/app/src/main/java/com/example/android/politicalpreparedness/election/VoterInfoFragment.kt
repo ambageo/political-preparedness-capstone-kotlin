@@ -51,17 +51,25 @@ class VoterInfoFragment : Fragment() {
             }
         })
 
-        //TODO: Handle save button UI state
+        //DONE: Handle save button UI state
         //TODO: cont'd Handle save button clicks
+        viewModel.isElectionFollowed.observe(viewLifecycleOwner, { isElectionFollowed ->
+           when (isElectionFollowed){
+               true -> binding.followElectionButton.text = getString(R.string.unfollow_election)
+               else -> binding.followElectionButton.text = getString(R.string.follow_election)
+           }
+
+        })
 
         return binding.root
     }
 
+    //DONE: Create method to load URL intents
     private fun launchUrl(url: String) {
         val urlIntent = Intent(ACTION_VIEW, Uri.parse(url))
         startActivity(urlIntent)
     }
 
-    //TODO: Create method to load URL intents
+
 
 }

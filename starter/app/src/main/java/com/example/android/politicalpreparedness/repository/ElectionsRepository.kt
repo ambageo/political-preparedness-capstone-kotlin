@@ -37,6 +37,12 @@ class ElectionsRepository(private val database: ElectionDatabase) {
        }
    }
 
+   suspend fun deleteElection(electionId: Int){
+       withContext(Dispatchers.IO){
+           database.electionDao.deleteElectionById(electionId)
+       }
+   }
+
    suspend fun isElectionFollowed(electionId: Int) {
        withContext(Dispatchers.IO){
            isElectionFollowed = database.electionDao.isElectionSaved(electionId)
