@@ -22,8 +22,8 @@ interface ElectionDao {
     @Query("delete from election_table")
     suspend fun deleteAll()
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveElection(id: SavedElection)
+    @Query("insert into saved_election_table (id) values(:electionId)")
+    suspend fun saveElection(electionId: Int)
 
 
     //DONE: Add select single election query

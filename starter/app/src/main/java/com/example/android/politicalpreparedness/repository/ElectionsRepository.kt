@@ -16,6 +16,8 @@ class ElectionsRepository(private val database: ElectionDatabase) {
     val apiService: CivicsApiService = CivicsApi.retrofitService
     lateinit var voterInfo:VoterInfoResponse
 
+    val upcomingElections: LiveData<List<Election>> = database.electionDao.getAllElections()
+
     suspend fun refreshElections(){
         withContext(Dispatchers.IO) {
             val electionsList = apiService.getElections()
@@ -29,7 +31,11 @@ class ElectionsRepository(private val database: ElectionDatabase) {
         }
     }
 
-    val upcomingElections: LiveData<List<Election>> = database.electionDao.getAllElections()
+   suspend fun saveElection(electionId: Int){
+       withContext(Dispatchers.IO){
+           database.electionDao.saveElection(electionId)
+       }
+   }
 
 
 }
