@@ -61,7 +61,7 @@
             app:layout_constraintTop_toBottomOf="@id/state_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
+        <!-- DONE: Add click binding to open web URL -->
         <!-- DONE: Add visual styling and content -->
         <TextView
             android:id="@+id/state_ballot"
@@ -96,6 +96,15 @@
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
         <!-- TODO: Add button to save election to Room -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Button"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="Follow Election"
+            android:layout_marginBottom="@dimen/double_margin"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
