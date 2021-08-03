@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add title to toolbar -->
+        <!-- DONE: Add title to toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/election_name"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
             app:layout_constraintTop_toBottomOf="@id/election_name"
             tools:text="12 November 2055" />
 
-        <!-- TODO: Add visual styling and content -->
+        <!-- DONE: Add visual styling and content -->
         <TextView
             android:id="@+id/state_header"
             android:layout_width="wrap_content"
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@id/election_date"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
+        <!-- DONE: Add click binding to open web URL -->
         <!-- DONE: Add visual styling and content -->
         <TextView
             android:id="@+id/state_locations"

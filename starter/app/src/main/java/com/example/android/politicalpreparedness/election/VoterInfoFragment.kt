@@ -40,7 +40,10 @@ class VoterInfoFragment : Fragment() {
 
         viewModel.hasVoterInfo.observe(viewLifecycleOwner, Observer { voterInfo ->
             if (voterInfo == false) {
+                hideVoterInfo(binding)
                 Snackbar.make(requireView(), R.string.voter_info_error, Snackbar.LENGTH_LONG).show()
+            } else {
+                showVoterInfo(binding)
             }
         })
 
@@ -60,7 +63,7 @@ class VoterInfoFragment : Fragment() {
         })
 
         //DONE: Handle save button UI state
-        //TODO: cont'd Handle save button clicks
+        //DONE: cont'd Handle save button clicks
         viewModel.isElectionFollowed.observe(viewLifecycleOwner, { isElectionFollowed ->
            when (isElectionFollowed){
                true -> binding.followElectionButton.text = getString(R.string.unfollow_election)
@@ -74,6 +77,20 @@ class VoterInfoFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun showVoterInfo(binding: FragmentVoterInfoBinding) {
+        binding.stateHeader.visibility = View.VISIBLE
+        binding.followElectionButton.visibility = View.VISIBLE
+        binding.stateLocations.visibility = View.VISIBLE
+        binding.stateBallot.visibility = View.VISIBLE
+    }
+
+    private fun hideVoterInfo(binding: FragmentVoterInfoBinding) {
+        binding.stateHeader.visibility = View.GONE
+        binding.followElectionButton.visibility = View.GONE
+        binding.stateLocations.visibility = View.GONE
+        binding.stateBallot.visibility = View.GONE
     }
 
     //DONE: Create method to load URL intents
