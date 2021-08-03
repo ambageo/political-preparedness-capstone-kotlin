@@ -53,6 +53,18 @@ class ElectionsFragment: Fragment() {
         }
         })
 
+        val followedElectionsAdapter = ElectionListAdapter(ElectionListener { election ->
+            viewModel.navigateToVoterInfo(election)
+        })
+
+        binding.followedElectionsList.adapter = followedElectionsAdapter
+
+        viewModel.followedElectionsList.observe(viewLifecycleOwner, Observer { followedElectionsList ->
+            followedElectionsList?.let {
+                //Log.d("ggg", "followed elections: ${followedElectionsList.size}")
+                followedElectionsAdapter.submitList(followedElectionsList)
+            }
+        })
 
 
         //TODO: Link elections to voter info

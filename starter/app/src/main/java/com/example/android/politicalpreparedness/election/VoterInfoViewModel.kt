@@ -67,8 +67,6 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
             repository.isElectionFollowed(electionId)
             _isElectionFollowed.value = repository.isElectionFollowed
         }
-
-        Log.d("ggg", "election $electionId")
     }
 
     fun votingLocationCompleted() {
@@ -91,6 +89,8 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
         } else {
             Log.d("ggg", "saving election $electionId")
             repository.saveElection(electionId)
+            repository.getElection(electionId)
+            Log.d("ggg", "saved election with id: ${repository.election.id}")
         }
     }
 
