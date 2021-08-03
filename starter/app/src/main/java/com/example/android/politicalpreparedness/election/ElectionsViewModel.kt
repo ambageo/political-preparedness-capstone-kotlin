@@ -27,25 +27,8 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
     init {
         viewModelScope.launch {
             repository.refreshElections()
-            //getFollowedElections()
         }
 
-    }
-
-    private fun getFollowedElections() {
-
-        Log.d("ggg", "followed elections: ${followedElections.value?.size}")
-        val electionsToDisplay= mutableListOf<Election>()
-        val iterator = followedElections.value?.listIterator()
-        if (iterator != null) {
-            while (iterator.hasNext()) {
-                viewModelScope.launch {
-                   repository.getElection(iterator.next().id)
-                    val followedElection = repository.election
-                  electionsToDisplay.add(followedElection)
-                }
-            }
-        }
     }
 
     //TODO: Create functions to navigate to saved or upcoming election voter info

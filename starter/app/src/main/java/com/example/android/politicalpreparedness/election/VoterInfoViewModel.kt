@@ -8,6 +8,7 @@ import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, application: Application) : AndroidViewModel(application) {
     private val database = ElectionDatabase.getInstance(application)
@@ -18,6 +19,10 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     private val _voterInfo = MutableLiveData<VoterInfoResponse>()
     val voterInfo: LiveData<VoterInfoResponse>
     get() = _voterInfo
+
+    private var _hasVoterInfo = MutableLiveData<Boolean>()
+   val hasVoterInfo: LiveData<Boolean>
+   get() = _hasVoterInfo
 
     //DONE: Add var and methods to support loading URLs
     private var _votingLocationUrl = MutableLiveData<String>()
@@ -52,11 +57,15 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
         val country = args.value.argDivision.country
         val state = args.value.argDivision.state
 
-        val address = "$country,$state"
-
-        viewModelScope.launch {
+        if (state.isNotEmpty()) {
+            val address = "$country,$state"
+            viewModelScope.launch {
                 repository.getVoterInfo(address, electionId)
-            _voterInfo.value = repository.voterInfo
+                _voterInfo.value = repository.voterInfo
+            }
+            _hasVoterInfo.value = true
+        } else {
+           _hasVoterInfo.value = false
         }
     }
 

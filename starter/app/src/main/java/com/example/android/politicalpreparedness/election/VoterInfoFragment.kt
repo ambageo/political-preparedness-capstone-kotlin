@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.Intent.ACTION_VIEW
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -12,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
+import com.google.android.material.snackbar.Snackbar
 
 class VoterInfoFragment : Fragment() {
 
@@ -35,6 +37,12 @@ class VoterInfoFragment : Fragment() {
         /**
         Hint: You will need to ensure proper data is provided from previous fragment.
         */
+
+        viewModel.hasVoterInfo.observe(viewLifecycleOwner, Observer { voterInfo ->
+            if (voterInfo == false) {
+                Snackbar.make(requireView(), R.string.voter_info_error, Snackbar.LENGTH_LONG).show()
+            }
+        })
 
         //DONE: Handle loading of URLs
         viewModel.votingLocationUrl.observe(viewLifecycleOwner, Observer { url ->

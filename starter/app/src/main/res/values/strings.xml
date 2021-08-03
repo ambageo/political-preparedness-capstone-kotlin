@@ -10,6 +10,7 @@
     <string name="election_information">Election Information</string>
     <string name="follow_election">Follow Election</string>
     <string name="unfollow_election">Unfollow Election</string>
+    <string name="voter_info_error">Unfortunately, details for this election are unavailable. Please choose a different one</string>
 
     <!-- TODO: Add necessary string values -->
 
