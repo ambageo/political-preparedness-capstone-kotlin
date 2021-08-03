@@ -86,12 +86,15 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
         if(isElectionFollowed.value == true){
             Log.d("ggg", "deleting election $electionId")
            repository.deleteElection(electionId)
+            _isElectionFollowed.value = false
         } else {
             Log.d("ggg", "saving election $electionId")
             repository.saveElection(electionId)
             repository.getElection(electionId)
             Log.d("ggg", "saved election with id: ${repository.election.id}")
+            _isElectionFollowed.value = true
         }
+
     }
 
 }
