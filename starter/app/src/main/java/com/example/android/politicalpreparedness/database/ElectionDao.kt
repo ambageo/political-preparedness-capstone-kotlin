@@ -1,11 +1,9 @@
 package com.example.android.politicalpreparedness.database
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.example.android.politicalpreparedness.network.models.Election
-import com.example.android.politicalpreparedness.network.models.ElectionResponse
-import com.example.android.politicalpreparedness.network.models.SavedElection
+import com.example.android.politicalpreparedness.network.models.FollowedElection
 
 @Dao
 interface ElectionDao {
@@ -22,11 +20,14 @@ interface ElectionDao {
     @Query("delete from election_table")
     suspend fun deleteAll()
 
+    @Query("select * from saved_election_table")
+    fun getFollowedElections(): LiveData<List<FollowedElection>>
+
     @Query("insert into saved_election_table (id) values(:electionId)")
-    suspend fun saveElection(electionId: Int)
+    suspend fun followElection(electionId: Int)
 
     @Query("select exists(select * from saved_election_table where id = :electionId)")
-    suspend fun isElectionSaved(electionId: Int): Boolean
+    suspend fun isElectionFollowed(electionId: Int): Boolean
 
 
     //DONE: Add select single election query

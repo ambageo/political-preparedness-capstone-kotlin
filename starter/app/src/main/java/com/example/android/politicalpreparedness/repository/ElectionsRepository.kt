@@ -5,6 +5,7 @@ import com.example.android.politicalpreparedness.database.ElectionDatabase
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.CivicsApiService
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.FollowedElection
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,6 +18,7 @@ class ElectionsRepository(private val database: ElectionDatabase) {
     var isElectionFollowed by Delegates.notNull<Boolean>()
 
     val upcomingElections: LiveData<List<Election>> = database.electionDao.getAllElections()
+    val followedElections: LiveData<List<FollowedElection>> = database.electionDao.getFollowedElections()
 
     suspend fun refreshElections(){
         withContext(Dispatchers.IO) {
@@ -33,7 +35,7 @@ class ElectionsRepository(private val database: ElectionDatabase) {
 
    suspend fun saveElection(electionId: Int){
        withContext(Dispatchers.IO){
-           database.electionDao.saveElection(electionId)
+           database.electionDao.followElection(electionId)
        }
    }
 
@@ -45,7 +47,7 @@ class ElectionsRepository(private val database: ElectionDatabase) {
 
    suspend fun isElectionFollowed(electionId: Int) {
        withContext(Dispatchers.IO){
-           isElectionFollowed = database.electionDao.isElectionSaved(electionId)
+           isElectionFollowed = database.electionDao.isElectionFollowed(electionId)
        }
    }
 

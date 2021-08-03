@@ -19,7 +19,7 @@ data class Election(
 * Since all data we need for an Election is already stored in election_table, we can just save the
 * id of an Election we want to follow */
 @Entity(tableName = "saved_election_table")
-data class SavedElection(
+data class FollowedElection(
         @PrimaryKey val id: Int
 )
 
