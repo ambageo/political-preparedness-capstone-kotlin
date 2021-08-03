@@ -22,5 +22,3 @@ data class Election(
 data class FollowedElection(
         @PrimaryKey val id: Int
 )
-
-// TODO: Add extension function to convert from Database Object to Domain Object

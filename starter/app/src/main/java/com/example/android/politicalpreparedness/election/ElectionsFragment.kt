@@ -48,7 +48,6 @@ class ElectionsFragment: Fragment() {
 
         viewModel.upcomingElections.observe(viewLifecycleOwner, Observer { electionsList ->
             electionsList?.let{
-            Log.d("ggg", "upcoming elections: ${electionsList.size}" )
                 upcomingElectionsAdapter.submitList(electionsList)
         }
         })
@@ -59,10 +58,9 @@ class ElectionsFragment: Fragment() {
 
         binding.followedElectionsList.adapter = followedElectionsAdapter
 
-        viewModel.followedElectionsList.observe(viewLifecycleOwner, Observer { followedElectionsList ->
-            followedElectionsList?.let {
-                //Log.d("ggg", "followed elections: ${followedElectionsList.size}")
-                followedElectionsAdapter.submitList(followedElectionsList)
+        viewModel.followedElections.observe(viewLifecycleOwner, Observer { followedElections ->
+            followedElections?.let {
+                followedElectionsAdapter.submitList(followedElections)
             }
         })
 

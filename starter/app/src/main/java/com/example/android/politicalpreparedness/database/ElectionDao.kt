@@ -20,8 +20,8 @@ interface ElectionDao {
     @Query("delete from election_table")
     suspend fun deleteAll()
 
-    @Query("select * from saved_election_table")
-    fun getFollowedElections(): LiveData<List<FollowedElection>>
+    @Query("select * from election_table where id in (select id from saved_election_table) order by electionDay desc")
+    fun getFollowedElections(): LiveData<List<Election>>
 
     @Query("insert into saved_election_table (id) values(:electionId)")
     suspend fun followElection(electionId: Int)

@@ -22,23 +22,18 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
     //DONE: Create live data val for saved elections
     //DONE: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
     val upcomingElections = repository.upcomingElections
-
-    private val _followedElectionsList = MutableLiveData<List<Election>>()
-    val followedElectionsList:LiveData<List<Election>>
-    get() = _followedElectionsList
-
-
+    val followedElections = repository.followedElections
 
     init {
         viewModelScope.launch {
             repository.refreshElections()
-            getFollowedElections()
+            //getFollowedElections()
         }
 
     }
 
     private fun getFollowedElections() {
-        val followedElections = repository.followedElections
+
         Log.d("ggg", "followed elections: ${followedElections.value?.size}")
         val electionsToDisplay= mutableListOf<Election>()
         val iterator = followedElections.value?.listIterator()
@@ -51,7 +46,6 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
                 }
             }
         }
-        _followedElectionsList.value = electionsToDisplay
     }
 
     //TODO: Create functions to navigate to saved or upcoming election voter info
