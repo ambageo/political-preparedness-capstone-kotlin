@@ -11,6 +11,7 @@ import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, application: Application) : AndroidViewModel(application) {
+
     private val database = ElectionDatabase.getInstance(application)
     private val repository = ElectionsRepository(database)
     private val electionId = args.value.argElectionId
@@ -21,8 +22,8 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     get() = _voterInfo
 
     private var _hasVoterInfo = MutableLiveData<Boolean>()
-   val hasVoterInfo: LiveData<Boolean>
-   get() = _hasVoterInfo
+    val hasVoterInfo: LiveData<Boolean>
+    get() = _hasVoterInfo
 
     //DONE: Add var and methods to support loading URLs
     private var _votingLocationUrl = MutableLiveData<String>()
@@ -93,14 +94,11 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
      */
     fun toggleFollowElection() = viewModelScope.launch {
         if(isElectionFollowed.value == true){
-            Log.d("ggg", "deleting election $electionId")
            repository.deleteElection(electionId)
             _isElectionFollowed.value = false
         } else {
-            Log.d("ggg", "saving election $electionId")
             repository.saveElection(electionId)
             repository.getElection(electionId)
-            Log.d("ggg", "saved election with id: ${repository.election.id}")
             _isElectionFollowed.value = true
         }
 
