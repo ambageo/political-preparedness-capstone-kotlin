@@ -12,6 +12,11 @@
     <string name="unfollow_election">Unfollow Election</string>
     <string name="voter_info_error">Unfortunately, details for this election are unavailable. Please choose a different one</string>
     <string name="state_correspondence">State Correspondence</string>
+    <string name="address_line_1">Adress Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="zip">Zip</string>
+    <string name="use_location">Use My Location</string>
 
     <!-- TODO: Add necessary string values -->
 
