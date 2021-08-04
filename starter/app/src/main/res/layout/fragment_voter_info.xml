@@ -25,16 +25,17 @@
             app:title="@{viewModel.voterInfo.election.name}"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- TODO: Add visual styling -->
+        <!-- DONE: Add visual styling -->
         <TextView
             android:id="@+id/election_date"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_double"
             android:layout_marginTop="@dimen/margin_double"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:text="@{viewModel.voterInfo.election.electionDay.toString()}"
             app:layout_constraintTop_toBottomOf="@id/election_name"
+            app:layout_constraintStart_toStartOf="parent"
             tools:text="12 November 2055" />
 
         <!-- DONE: Add visual styling and content -->
@@ -84,14 +85,16 @@
             android:layout_height="wrap_content"
             style="@style/HeaderTextView"
             android:text="@string/state_correspondence"
+            android:layout_marginEnd="@dimen/margin_default"
             app:layout_constraintTop_toBottomOf="@id/state_ballot"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
-        <!-- TODO: Add data binding -->
+        <!-- DONE: Add data binding -->
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{viewModel.correspondenceAddress}"
             app:layout_constraintTop_toBottomOf="@id/state_correspondence_header"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 

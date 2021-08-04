@@ -38,12 +38,20 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
     val isElectionFollowed: LiveData<Boolean>
     get() = _isElectionFollowed
 
+    private var _correspondenceAddress = MutableLiveData<String>()
+    val correspondenceAddress: LiveData<String>
+    get() = _correspondenceAddress
+
      fun loadVotingLocationUrl(){
         _votingLocationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl
     }
 
     fun loadBallotInformationUrl(){
         _ballotInformationUrl.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.ballotInfoUrl
+    }
+
+    private fun getCorrespondenceAddress(){
+        _correspondenceAddress.value = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.correspondenceAddress?.toFormattedString()
     }
 
     //DONE: Add var and methods to populate voter info
@@ -63,6 +71,7 @@ class VoterInfoViewModel(private val args: NavArgsLazy<VoterInfoFragmentArgs>, a
             viewModelScope.launch {
                 repository.getVoterInfo(address, electionId)
                 _voterInfo.value = repository.voterInfo
+                getCorrespondenceAddress()
             }
             _hasVoterInfo.value = true
         } else {

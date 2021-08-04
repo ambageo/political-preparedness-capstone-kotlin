@@ -9,9 +9,8 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- TODO: Add necessary styles -->
+    <!-- DONE: Add necessary styles -->
     <style name="VoterInfoLinks">
-        <item name="android:layout_margin">@dimen/margin_default</item>
         <item name="android:background">@color/colorAccent</item>
         <item name="android:layout_marginTop">@dimen/margin_double</item>
         <item name="android:padding">@dimen/padding_default</item>
@@ -24,7 +23,7 @@
     </style>
 
     <style name="HeaderTextView">
-        <item name="android:layout_marginStart">@dimen/margin_default</item>
+       <!-- <item name="android:layout_marginStart">@dimen/margin_default</item>-->
         <item name="android:layout_marginTop">@dimen/margin_double</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
