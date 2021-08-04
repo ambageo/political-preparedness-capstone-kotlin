@@ -11,20 +11,21 @@
 
     <!-- TODO: Add necessary styles -->
     <style name="VoterInfoLinks">
-        <item name="android:layout_margin">@dimen/default_margin</item>
+        <item name="android:layout_margin">@dimen/margin_default</item>
         <item name="android:background">@color/colorAccent</item>
-        <item name="android:layout_marginTop">@dimen/double_margin</item>
-        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:layout_marginTop">@dimen/margin_double</item>
+        <item name="android:padding">@dimen/padding_default</item>
     </style>
 
     <style name="Button">
         <item name="android:background">@color/colorAccent</item>
-        <item name="android:padding">@dimen/default_padding</item>
+        <item name="android:padding">@dimen/padding_default</item>
+        <item name="android:layout_margin">@dimen/margin_button</item>
     </style>
 
     <style name="HeaderTextView">
-        <item name="android:layout_marginStart">@dimen/default_margin</item>
-        <item name="android:layout_marginTop">@dimen/double_margin</item>
+        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:layout_marginTop">@dimen/margin_double</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
 

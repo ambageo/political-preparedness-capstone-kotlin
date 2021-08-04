@@ -24,7 +24,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Button"
-            android:layout_margin="@dimen/margin_button"
             android:text="@string/upcoming_button"
             app:layout_constraintBottom_toTopOf="@id/representative_button"/>
 
@@ -35,7 +34,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/find_representatives_button"
-            android:layout_margin="@dimen/margin_button"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
