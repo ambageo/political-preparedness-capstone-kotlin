@@ -22,4 +22,10 @@
         <item name="android:padding">@dimen/default_padding</item>
     </style>
 
+    <style name="HeaderTextView">
+        <item name="android:layout_marginStart">@dimen/default_margin</item>
+        <item name="android:layout_marginTop">@dimen/double_margin</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
+    </style>
+
 </resources>

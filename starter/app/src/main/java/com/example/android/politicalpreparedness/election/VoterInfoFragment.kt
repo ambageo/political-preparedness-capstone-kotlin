@@ -84,6 +84,7 @@ class VoterInfoFragment : Fragment() {
         binding.followElectionButton.visibility = View.VISIBLE
         binding.stateLocations.visibility = View.VISIBLE
         binding.stateBallot.visibility = View.VISIBLE
+        binding.addressGroup.visibility = View.VISIBLE
     }
 
     private fun hideVoterInfo(binding: FragmentVoterInfoBinding) {
@@ -91,6 +92,7 @@ class VoterInfoFragment : Fragment() {
         binding.followElectionButton.visibility = View.GONE
         binding.stateLocations.visibility = View.GONE
         binding.stateBallot.visibility = View.GONE
+        binding.addressGroup.visibility = View.GONE
     }
 
     //DONE: Create method to load URL intents
