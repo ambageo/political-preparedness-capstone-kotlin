@@ -4,8 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.CivicsApiService
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.model.Representative
+import kotlinx.coroutines.launch
 import java.util.*
 
 class RepresentativeViewModel: ViewModel() {
@@ -19,6 +23,8 @@ class RepresentativeViewModel: ViewModel() {
     private val _representatives = MutableLiveData<List<Representative>>()
     val representatives: LiveData<List<Representative>>
         get() = _representatives
+
+    val apiService: CivicsApiService = CivicsApi.retrofitService
 
     init {
         _address.value = Address("" ,"", "", "", "")
@@ -38,6 +44,21 @@ class RepresentativeViewModel: ViewModel() {
     fun getRepresentatives() {
        Log.d("ggg", "address: ${_address.value?.toFormattedString()}")
         Log.d("ggg", "state: ${_address.value?.state}")
+        viewModelScope.launch {
+            _address.value?.let {
+                val response = apiService.getRepresentatives(it.toFormattedString())
+                val offices = response.offices
+                val officials = response.officials
+
+                val representativesList = mutableListOf<Representative>()
+
+                offices.forEach { office ->
+                    representativesList.addAll(office.getRepresentatives(officials))
+                }
+                _representatives.value = representativesList
+                Log.d("ggg", "representatives: ${representatives.value?.size}")
+            }
+        }
     }
 
     //TODO: Create function get address from geo location

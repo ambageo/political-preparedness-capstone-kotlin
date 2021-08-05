@@ -58,5 +58,4 @@ class ElectionsRepository(private val database: ElectionDatabase) {
         }
     }
 
-
 }
