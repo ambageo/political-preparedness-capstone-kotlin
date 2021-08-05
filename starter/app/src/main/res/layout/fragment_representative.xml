@@ -3,7 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:motion="http://schemas.android.com/tools">
 
-    <!-- TODO: Add data binding node -->
+    <!-- DONE: Add data binding node -->
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
+    </data>
 
     <!-- TODO: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -17,11 +22,13 @@
             android:layout_height="0dp"
             app:layout_constraintBottom_toTopOf="@id/guideline">
 
-            <!-- TODO: Add visual styling and content -->
+            <!-- DONE: Add visual styling and content -->
             <TextView
                 android:id="@+id/search_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                style="@style/HeaderTextView"
+                android:text="@string/representative_search"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,6 +41,7 @@
                 android:autofillHints="testHint"
                 android:hint="@string/address_line_1"
                 android:inputType="textPostalAddress"
+                android:text="@{viewmodel.address.line1}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/search_title" />
 
@@ -46,6 +54,7 @@
                 android:autofillHints="testHint"
                 android:hint="@string/address_line_2"
                 android:inputType="textPostalAddress"
+                android:text="@{viewmodel.address.line2}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
@@ -58,6 +67,7 @@
                 android:autofillHints="testHint"
                 android:hint="@string/city"
                 android:inputType="textPostalAddress"
+                android:text="@{viewmodel.address.city}"
                 app:layout_constraintEnd_toStartOf="@id/state"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/address_line_2" />
@@ -71,6 +81,7 @@
                 android:layout_height="0dp"
                 android:autofillHints="testHint"
                 android:inputType="textPostalAddress"
+                app:stateValue="@{viewmodel.address.state}"
                 android:entries="@array/states"
                 app:layout_constraintBottom_toBottomOf="@id/city"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,6 +97,7 @@
                 android:autofillHints="testHint"
                 android:hint="@string/zip"
                 android:inputType="number"
+                android:text="@{viewmodel.address.zip}"
                 android:maxLength="5"
                 app:layout_constraintEnd_toEndOf="@id/city"
                 app:layout_constraintStart_toStartOf="parent"

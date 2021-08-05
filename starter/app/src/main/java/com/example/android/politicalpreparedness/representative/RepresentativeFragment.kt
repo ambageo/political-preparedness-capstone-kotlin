@@ -4,11 +4,17 @@ import android.content.Context
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.setNewValue
 import java.util.Locale
 
 class RepresentativeFragment : Fragment() {
@@ -17,20 +23,32 @@ class RepresentativeFragment : Fragment() {
         //TODO: Add Constant for Location request
     }
 
-    //TODO: Declare ViewModel
+    //DONE: Declare ViewModel
+    private val viewModel: RepresentativeViewModel by lazy {
+        ViewModelProvider(this).get(RepresentativeViewModel::class.java)
+    }
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        val binding = FragmentRepresentativeBinding.inflate(inflater)
+        val binding: FragmentRepresentativeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_representative, container, false)
         //TODO: Establish bindings
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewmodel = viewModel
+
         //TODO: Define and assign Representative adapter
 
         //TODO: Populate Representative adapter
 
         //TODO: Establish button listeners for field and location search
+        binding.buttonSearch.setOnClickListener {
+            viewModel.getRepresentatives()
+        }
 
+        viewModel.address.observe(viewLifecycleOwner, Observer { it ->
+           binding.state.setNewValue(it.state)
+        })
         return binding.root
     }
 
