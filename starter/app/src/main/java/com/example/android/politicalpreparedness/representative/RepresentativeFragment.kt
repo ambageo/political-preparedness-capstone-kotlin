@@ -10,6 +10,7 @@ import android.Manifest
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.AdapterView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -55,11 +56,18 @@ class RepresentativeFragment : Fragment() {
             viewModel.getRepresentatives()
         }
 
-        viewModel.address.observe(viewLifecycleOwner, Observer { it ->
-            it?.let {
-                binding.state.setNewValue(it.state)
-           }
-        })
+        /*
+        * Get the selected item of the spinner and update the address accordingly
+        * */
+        binding.state.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                viewModel.address.value?.state = binding.state.selectedItem as String
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                viewModel.address.value?.state = binding.state.selectedItem as String
+            }
+        }
         return binding.root
     }
 
