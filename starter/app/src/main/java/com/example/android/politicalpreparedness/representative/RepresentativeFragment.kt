@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.get
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -55,7 +56,9 @@ class RepresentativeFragment : Fragment() {
         }
 
         viewModel.address.observe(viewLifecycleOwner, Observer { it ->
-           binding.state.setNewValue(it.state)
+            it?.let {
+                binding.state.setNewValue(it.state)
+           }
         })
         return binding.root
     }

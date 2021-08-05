@@ -12,16 +12,16 @@ class RepresentativeViewModel: ViewModel() {
 
     //TODO: Establish live data for representatives and address
     private val _address = MutableLiveData<Address>()
-    /*val address: LiveData<Address>
-    get() = _address*/
-    val address: Address = Address("", "", "", "", "")
+    val address: LiveData<Address>
+    get() = _address
+    //val address: Address = Address("", "", "", "", "")
 
     private val _representatives = MutableLiveData<List<Representative>>()
     val representatives: LiveData<List<Representative>>
         get() = _representatives
 
     init {
-        //_address.value = Address("" ,"", "", "", "")
+        _address.value = Address("" ,"", "", "", "")
     }
     //TODO: Create function to fetch representatives from API from a provided address
 
@@ -36,8 +36,8 @@ class RepresentativeViewModel: ViewModel() {
 
      */
     fun getRepresentatives() {
-        _address.value = address
        Log.d("ggg", "address: ${_address.value?.toFormattedString()}")
+        Log.d("ggg", "state: ${_address.value?.state}")
     }
 
     //TODO: Create function get address from geo location
