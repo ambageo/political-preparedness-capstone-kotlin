@@ -28,4 +28,9 @@
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
 
+    <style name="EditText">
+        <item name="android:textStyle">italic</item>
+        <item name="android:textColorHint">@color/colorHint</item>
+    </style>
+
 </resources>
