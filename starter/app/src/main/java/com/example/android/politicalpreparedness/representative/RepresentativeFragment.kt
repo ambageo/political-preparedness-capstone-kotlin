@@ -1,12 +1,18 @@
 package com.example.android.politicalpreparedness.representative
 
 import android.content.Context
+import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.Manifest
+import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.view.*
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,7 +26,9 @@ import java.util.Locale
 class RepresentativeFragment : Fragment() {
 
     companion object {
-        //TODO: Add Constant for Location request
+        //DONE: Add Constant for Location request
+        private const val FINE_LOCATION_ACCESS_REQUEST_CODE = 1
+        private const val REQUEST_LOCATION_PERMISSION = 11
     }
 
     //DONE: Declare ViewModel
@@ -54,21 +62,35 @@ class RepresentativeFragment : Fragment() {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        //TODO: Handle location permission result to get location on permission granted
+        //DONE: Handle location permission result to get location on permission granted
+        when (requestCode) {
+            FINE_LOCATION_ACCESS_REQUEST_CODE -> {
+                if (grantResults.isNotEmpty() && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                    getLocation()
+                } else {
+                    Toast.makeText(context, "Location permission has not been granted.", Toast.LENGTH_LONG).show()
+                }
+
+            }
+
+        }
+
     }
 
     private fun checkLocationPermissions(): Boolean {
         return if (isPermissionGranted()) {
             true
         } else {
-            //TODO: Request Location permissions
+           ActivityCompat.requestPermissions(requireActivity(),
+           arrayOf(ACCESS_FINE_LOCATION), REQUEST_LOCATION_PERMISSION)
             false
         }
     }
 
     private fun isPermissionGranted() : Boolean {
-        //TODO: Check if permission is already granted and return (true = granted, false = denied/other)
-        return true
+        //DONE: Check if permission is already granted and return (true = granted, false = denied/other)
+       return ContextCompat
+           .checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
     }
 
     private fun getLocation() {
