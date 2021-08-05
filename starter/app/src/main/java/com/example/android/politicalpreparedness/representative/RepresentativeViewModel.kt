@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.model.Representative
 
 class RepresentativeViewModel: ViewModel() {
 
@@ -12,6 +13,10 @@ class RepresentativeViewModel: ViewModel() {
     private val _address = MutableLiveData<Address>()
     val address: LiveData<Address>
     get() = _address
+
+    private val _representatives = MutableLiveData<List<Representative>>()
+    val representatives: LiveData<List<Representative>>
+        get() = _representatives
 
     init {
         _address.value = Address("" ,"", "", "", "")
