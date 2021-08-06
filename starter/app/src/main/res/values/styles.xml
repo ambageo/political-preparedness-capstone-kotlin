@@ -23,8 +23,8 @@
     </style>
 
     <style name="HeaderTextView">
-       <!-- <item name="android:layout_marginStart">@dimen/margin_default</item>-->
-        <item name="android:layout_marginTop">@dimen/margin_double</item>
+        <item name="android:layout_marginTop">@dimen/margin_default</item>
+        <item name="android:layout_marginStart">@dimen/margin_default</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Large</item>
     </style>
 

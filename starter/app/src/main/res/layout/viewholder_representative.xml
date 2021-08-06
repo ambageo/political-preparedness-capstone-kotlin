@@ -12,12 +12,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:background="@color/colorEditTextBackground"
+        android:layout_marginBottom="@dimen/margin_default">
 
         <ImageView
             android:id="@+id/representative_photo"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -27,27 +29,27 @@
             android:id="@+id/person_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/representative_photo"
-            app:layout_constraintTop_toBottomOf="@+id/office_name" />
+            tools:text="Representative Name"
+            app:layout_constraintStart_toStartOf="@+id/office_name"
+            app:layout_constraintBottom_toTopOf="@id/office_name"/>
 
         <TextView
             android:id="@+id/office_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            tools:text="Representative Office Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             app:layout_constraintStart_toEndOf="@+id/representative_photo"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@id/representative_photo"
+            app:layout_constraintBottom_toBottomOf="@id/representative_photo"/>
 
         <TextView
             android:id="@+id/party_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            app:layout_constraintStart_toEndOf="@+id/representative_photo"
-            app:layout_constraintTop_toBottomOf="@+id/person_name"
+            app:layout_constraintStart_toStartOf="@+id/office_name"
+            app:layout_constraintTop_toBottomOf="@+id/office_name"
             tools:text="Republic Party" />
 
         <ImageView
@@ -58,7 +60,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/facebook_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.803"
+            app:layout_constraintVertical_bias="1"
             app:srcCompat="@drawable/ic_twitter" />
 
         <ImageView
@@ -68,7 +70,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.803"
+            app:layout_constraintVertical_bias="1"
             app:srcCompat="@drawable/ic_facebook" />
 
         <ImageView
@@ -79,7 +81,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/twitter_icon"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.803"
+            app:layout_constraintVertical_bias="1"
             app:srcCompat="@drawable/ic_www" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
