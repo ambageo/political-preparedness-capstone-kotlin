@@ -14,11 +14,10 @@ import java.util.*
 
 class RepresentativeViewModel: ViewModel() {
 
-    //TODO: Establish live data for representatives and address
+    //DONE: Establish live data for representatives and address
     private val _address = MutableLiveData<Address>()
     val address: LiveData<Address>
     get() = _address
-    //val address: Address = Address("", "", "", "", "")
 
     private val _representatives = MutableLiveData<List<Representative>>()
     val representatives: LiveData<List<Representative>>
@@ -29,7 +28,7 @@ class RepresentativeViewModel: ViewModel() {
     init {
         _address.value = Address("" ,"", "", "", "")
     }
-    //TODO: Create function to fetch representatives from API from a provided address
+    //DONE: Create function to fetch representatives from API from a provided address
 
     /**
      *  The following code will prove helpful in constructing a representative from the API. This code combines the two nodes of the RepresentativeResponse into a single official :
@@ -42,8 +41,6 @@ class RepresentativeViewModel: ViewModel() {
 
      */
     fun getRepresentatives() {
-       Log.d("ggg", "address: ${_address.value?.toFormattedString()}")
-        Log.d("ggg", "state: ${_address.value?.state}")
         viewModelScope.launch {
             _address.value?.let {
                 val response = apiService.getRepresentatives(it.toFormattedString())
@@ -56,12 +53,14 @@ class RepresentativeViewModel: ViewModel() {
                     representativesList.addAll(office.getRepresentatives(officials))
                 }
                 _representatives.value = representativesList
-                Log.d("ggg", "representatives: ${representatives.value?.size}")
             }
         }
     }
 
-    //TODO: Create function get address from geo location
+    //DONE: Create function get address from geo location
+    fun updateAddressFromGeoLocation(address: Address){
+        _address.value = address
+    }
 
     //TODO: Create function to get address from individual fields
 

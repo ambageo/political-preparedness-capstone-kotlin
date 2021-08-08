@@ -29,7 +29,8 @@ class ElectionsFragment: Fragment() {
         val viewModelFactory = ElectionsViewModelFactory(requireActivity().application)
         val viewModel = ViewModelProvider(this, viewModelFactory).get(ElectionsViewModel::class.java)
 
-        //TODO: Initiate recycler adapters
+        //DONE: Initiate recycler adapters
+        //DONE: Populate recycler adapters
         val upcomingElectionsAdapter = ElectionListAdapter(ElectionListener {  election ->
             election.let {
                 viewModel.navigateToVoterInfo(election)
@@ -37,6 +38,7 @@ class ElectionsFragment: Fragment() {
 
         })
 
+        //DONE: Link elections to voter info
         viewModel.navigateToVoterInfo.observe(viewLifecycleOwner, Observer { election ->
             election?.let {
                 this.findNavController().navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election.id, election.division))
@@ -58,23 +60,14 @@ class ElectionsFragment: Fragment() {
 
         binding.followedElectionsList.adapter = followedElectionsAdapter
 
+        //DONE: Refresh adapters when fragment loads
         viewModel.followedElections.observe(viewLifecycleOwner, Observer { followedElections ->
             followedElections?.let {
                 followedElectionsAdapter.submitList(followedElections)
             }
         })
 
-
-        //TODO: Link elections to voter info
-
-
-
-        //TODO: Populate recycler adapters
-
-
         return binding.root
     }
-
-    //TODO: Refresh adapters when fragment loads
 
 }

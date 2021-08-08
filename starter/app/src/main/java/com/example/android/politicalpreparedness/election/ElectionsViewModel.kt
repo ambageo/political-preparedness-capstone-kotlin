@@ -8,7 +8,7 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.ElectionsRepository
 import kotlinx.coroutines.launch
 
-//TODO: Construct ViewModel and provide election datasource
+//DONE: Construct ViewModel and provide election datasource
 class ElectionsViewModel(application: Application): AndroidViewModel(application) {
 
     private val database = ElectionDatabase.getInstance(application)
@@ -31,7 +31,7 @@ class ElectionsViewModel(application: Application): AndroidViewModel(application
 
     }
 
-    //TODO: Create functions to navigate to saved or upcoming election voter info
+    //DONE: Create functions to navigate to saved or upcoming election voter info
     fun navigateToVoterInfo(election: Election) {
         _navigateToVoterInfo.value = election
     }
